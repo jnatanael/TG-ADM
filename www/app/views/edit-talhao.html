@@ -1,0 +1,106 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#propriedades">Propriedades</a></li>
+                    <li><a href="#info-propriedade/{{data.$id}}">{{data.nome_fazenda}}</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Informações da Propriedade <strong>{{data.nome_fazenda}}</strong>.</p>
+        <div class="divider"></div><br>
+        <fieldset>
+            <legend>Informações da propriedade</legend>
+            <h5><strong>Proprietário: </strong>{{data.proprietario}}</h5>
+            <h5><strong>Cidade: </strong>{{data.cidade}} / {{data.estado}}</h5>
+            <h5><strong>Zona Rural: </strong> {{data.zona_rural}}</h5>
+        </fieldset>
+
+        <fieldset>
+            <legend>Informação do Talhão</legend>
+            <form>
+
+                <input type="hidden" id="uid" value="{{dataTalhao.$id}}">
+                <div class="row">                        
+                    <div class="input-field col s12">
+                        <input id="nome" type="text" class="validate" value="{{dataTalhao.nome}}">
+                        <label class="active" for="nome">Nome</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="tamanho" type="text" class="validate" value="{{dataTalhao.tamanho}}">
+                        <label class="active" for="tamanho">Tamanho</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input id="latitude" type="text" class="validate" value="{{dataTalhao.latitude}}">
+                        <label class="active" for="latitude">Latitude</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input id="longitude" type="text" class="validate" value="{{dataTalhao.longitude}}">
+                        <label class="active" for="longitude">Longitude</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <select name="situacao" id="situacao">
+                            <option value="" disabled selected>Selecione a Situação</option>
+                            <option value="Próprio">Próprio</option>
+                            <option value="Arrendado">Arrendado</option>
+                            <option value="Novo">Novo</option>
+                            <option value="Já Trabalhado">Já Trabalhado</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s12">
+                        <label class="active" for="msgtextarea">Observação</label>
+                        <textarea id="msgtextarea" class="materialize-textarea">{{dataTalhao.observacao}}</textarea>
+                        <br>
+                        <button onclick="salvarTalhao()" class="waves-effect waves-light green btn"><i class="mdi-content-send right"></i>Atualizar</button>
+                    </div>
+                </div>                             
+            </form>
+        </fieldset>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+    function salvarTalhao() {
+        swal({title: "Salvando!",
+            text: "Aguarde...",
+            timer: 2000,
+            showConfirmButton: false
+        });
+        var uid = $('#uid').val();
+        var nome = $('#nome').val();
+        var tamanho = $('#tamanho').val();
+        var latitude = $('#latitude').val();
+        var longitude = $('#longitude').val();
+        var situacao = $('#situacao option:selected').val();
+        var msgtextarea = $('#msgtextarea').val();
+
+        firebase.database().ref('talhoes/' + uid).set({
+            nome: nome,
+            tamanho: tamanho,
+            latitude: latitude,
+            longitude: longitude,
+            situacao: situacao,
+            observacao: msgtextarea
+        });
+        swal("Alteração efetuada com sucesso!", "", "success");
+    }
+    ;
+</script>

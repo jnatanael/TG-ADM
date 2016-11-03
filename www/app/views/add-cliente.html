@@ -1,0 +1,283 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#clientes">Clientes</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Preencha com as informações do Cliente.</p>
+        <div class="divider"></div>
+        <form>
+            <fieldset>
+                <legend>Informações Pessoais</legend>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="nome" type="text" class="validate" required>
+                        <label for="nome">Nome</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="email" type="email" class="validate" required>
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input id="cpf" type="text" class="validate">
+                        <label for="cpf">CPF</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input id="rg" type="text" class="validate">
+                        <label for="rg">RG</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input id="telefone" type="tel" class="validate">
+                        <label for="telefone">Telefone</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input id="celular" type="tel" class="validate" required>
+                        <label for="celular">Celular</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Endereço para Correspondência</legend>
+                <div class="row">
+                    <div class="input-field col s12 m4 l4">
+                        <input id="cep" type="text" class="validate">
+                        <label for="cep">CEP</label>
+                    </div>
+                    <div class="input-field col s12 m4 l4">
+                        <input id="cidade" type="text" class="validate">
+                        <label for="cidade">Cidade</label>
+                    </div>
+                    <div class="input-field col s12 m4 l4">
+                        <select name="estado" id="estado">
+                            <option value="" disabled selected>Selecione o Estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="rua" type="text" class="validate">
+                        <label for="rua">Rua</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m2 l2">
+                        <input id="numero" type="text" class="validate">
+                        <label for="numero">Número</label>
+                    </div>
+                    <div class="input-field col s12 m3 l3">
+                        <input id="complemento" type="text" class="validate">
+                        <label for="complemento">Complemento</label>
+                    </div>
+                    <div class="input-field col s12 m7 l7">
+                        <input id="bairro" type="text" class="validate">
+                        <label for="bairro">Bairro</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Informações da Propriedade</legend>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="razao_social_propriedade" type="text" class="validate">
+                        <label for="razao_social_propriedade">Razão Social</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="nome_fantasia_propriedade" type="text" class="validate">
+                        <label for="nome_fantasia_propriedade">Nome Fantasia</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input id="cnpj_propriedade" type="text" class="validate">
+                        <label for="cnpj_propriedade">CNPJ</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input id="inscricao_estadual_propriedade" type="text" class="validate">
+                        <label for="inscricao_estadual_propriedade">Inscrição Estadual</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Administrador</legend>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="nome_administrador" type="text" class="validate">
+                        <label for="nome_administrador">Nome</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input id="email_administrador" type="email" class="validate">
+                        <label for="email_administrador">Email</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input id="telefone_administrador" type="tel" class="validate">
+                        <label for="telefone_administrador">Telefone</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Gerente</legend>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="nome_gerente" type="text" class="validate">
+                        <label for="nome_gerente">Nome</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input id="email_gerente" type="email" class="validate">
+                        <label for="email_gerente">Email</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input id="telefone_gerente" type="tel" class="validate">
+                        <label for="telefone_gerente">Telefone</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <button onclick="salvar()" class="btn green waves-effect waves-light left" type="submit" name="action">Cadastrar
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+    function salvar() {
+
+        swal({title: "Salvando!",
+            text: "Aguarde...",
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+        var nome = $('#nome').val();
+        var email = $('#email').val();
+        var password = "terrasgerais";
+        var cpf = $('#cpf').val();
+        var rg = $('#rg').val();
+        var telefone = $('#telefone').val();
+        var celular = $('#celular').val();
+
+        var cep = $('#cep').val();
+        var cidade = $('#cidade').val();
+        var estado = $('#estado option:selected').val();
+        var rua = $('#rua').val();
+        var numero = $('#numero').val();
+        var complemento = $('#complemento').val();
+        var bairro = $('#bairro').val();
+        var razao_social_propriedade = $('#razao_social_propriedade').val();
+        var nome_fantasia_propriedade = $('#nome_fantasia_propriedade').val();
+        var cnpj_propriedade = $('#cnpj_propriedade').val();
+        var inscricao_estadual_propriedade = $('#inscricao_estadual_propriedade').val();
+        var nome_administrador = $('#nome_administrador').val();
+        var email_administrador = $('#email_administrador').val();
+        var telefone_administrador = $('#telefone_administrador').val();
+        var nome_gerente = $('#nome_gerente').val();
+        var email_gerente = $('#email_gerente').val();
+        var telefone_gerente = $('#telefone_gerente').val();
+
+        var secondaryApp = firebase.initializeApp(config, nome);
+
+        secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+            firebase.database().ref('clientes/' + user.uid).set({
+                nome: nome,
+                email: email,
+                cpf: cpf,
+                rg: rg,
+                telefone: telefone,
+                celular: celular,
+                senha: password,
+                cep: cep,
+                cidade: cidade,
+                estado: estado,
+                rua: rua,
+                numero: numero,
+                complemento: complemento,
+                bairro: bairro,
+                razao_social_propriedade: razao_social_propriedade,
+                nome_fantasia_propriedade: nome_fantasia_propriedade,
+                cnpj_propriedade: cnpj_propriedade,
+                inscricao_estadual_propriedade: inscricao_estadual_propriedade,
+                nome_administrador: nome_administrador,
+                email_administrador: email_administrador,
+                telefone_administrador: telefone_administrador,
+                nome_gerente: nome_gerente,
+                email_gerente: email_gerente,
+                telefone_gerente: telefone_gerente,
+                tipoUsuario: "CLIENTE"
+            });
+            secondaryApp.auth().signOut();
+            swal("Cliente Cadastrado com sucesso!", "", "success");
+            window.location.href = "#clientes";
+        }, function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            // [START_EXCLUDE]
+            if (errorCode === 'auth/email-already-in-use') {
+                swal("Email do cliente já cadastrado!", "Tente novamente com outro email!", "error");
+            } else if (errorCode === 'auth/weak-password') {
+                swal("Senha imprópria", "A senha deve conter pelo menos 6 caracteres!", "error");
+            } else {
+                console.error(error);
+            }
+            // [END_EXCLUDE]
+        });
+
+    }
+</script>
+

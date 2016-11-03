@@ -1,0 +1,141 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#usuarios">Usuários</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Atualize as informações do usuário <strong>{{data.nome}}</strong>.</p>
+        <div class="divider"></div>
+        <form>
+            <div class="row">
+                <div class="input-field col s12 m3 l3">
+                    <select name="tipo_usuario" id="tipo_usuario">
+                        <option value="" disabled selected>Tipo de Usuário</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Responsável Técnico">Responsável Técnico</option>
+                        <option value="Consultor">Consultor</option>
+                    </select>
+                </div>
+                <div class="input-field col s3 m9 l9">
+                    <input id="nome" type="text" class="validate" value="{{data.nome}}">
+                    <label class="active"  for="nome">Nome</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" value="{{data.email}}" disabled>
+                    <label class="active"  for="email">Email</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input id="telefone" type="tel" class="validate" value="{{data.telefone}}">
+                    <label class="active"  for="telefone">Telefone</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="celular" type="tel" class="validate" value="{{data.celular}}">
+                    <label class="active"  for="celular">Celular</label>
+                </div>
+            </div>
+            <input type="hidden" value="{{data.$id}}" id="uid">
+            <input type="hidden" value="{{data.cpf}}" id="cpf">
+            <input type="hidden" value="{{data.data_nascimento}}" id="data_nascimento">
+            <input type="hidden" value="{{data.rg}}" id="rg">
+            <input type="hidden" value="{{data.cep}}" id="cep">
+            <input type="hidden" value="{{data.cidade}}" id="cidade">
+            <input type="hidden" value="{{data.estado}}" id="estado">
+            <input type="hidden" value="{{data.rua}}" id="rua">
+            <input type="hidden" value="{{data.numero}}" id="numero">
+            <input type="hidden" value="{{data.complemento}}" id="complemento">
+            <input type="hidden" value="{{data.bairro}}" id="bairro">
+            <input type="hidden" value="{{data.facebook}}" id="facebook">
+            <input type="hidden" value="{{data.linkedin}}" id="linkedin">
+            <input type="hidden" value="{{data.whatsapp}}" id="whatsapp">
+            <input type="hidden" value="{{data.avatar}}" id="avatar">
+            <div class="row">
+                <div class="input-field col s12">
+                    <button onclick="salvar()" class="btn green waves-effect waves-light left" type="submit" name="action">Atualizar
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+    function salvar() {
+        swal({title: "Salvando!",
+            text: "Aguarde...",
+            timer: 2000,
+            showConfirmButton: false
+        });
+        var tipo_usuario = $('#tipo_usuario option:selected').val();
+        var nome = $('#nome').val();
+        var email = $('#email').val();
+        var cpf = $('#cpf').val();
+        var rg = $('#rg').val();
+        var telefone = $('#telefone').val();
+        var celular = $('#celular').val();
+        var avatar = $('#avatar').val();
+
+        var cep = $('#cep').val();
+        var cidade = $('#cidade').val();
+        var estado = $('#estado').val();
+        var rua = $('#rua').val();
+        var numero = $('#numero').val();
+        var complemento = $('#complemento').val();
+        var bairro = $('#bairro').val();
+        var linkedin = $('#linkedin').val();
+        var facebook = $('#facebook').val();
+        var whatsapp = $('#whatsapp').val();
+        var data_nascimento = $('#data_nascimento').val();
+
+        var id = $('#uid').val();
+
+
+        firebase.database().ref('usuarios/' + id).set({
+            tipoUsuario: tipo_usuario,
+            nome: nome,
+            email: email,
+            cpf: cpf,
+            rg: rg,
+            telefone: telefone,
+            celular: celular,
+            cep: cep,
+            cidade: cidade,
+            estado: estado,
+            rua: rua,
+            numero: numero,
+            complemento: complemento,
+            bairro: bairro,
+            linkedin: linkedin,
+            facebook: facebook,
+            whatsapp: whatsapp,
+            data_nascimento: data_nascimento,
+            avatar: avatar
+        });
+
+        swal("Alteração efetuada com sucesso!", "", "success");
+        window.location.href = "#usuarios";
+
+    }
+</script>

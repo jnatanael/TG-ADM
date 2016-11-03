@@ -1,0 +1,117 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#consultores">Consultores</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Preencha com as informações do Consultor.</p>
+        <div class="divider"></div>
+        <form>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="nome" type="text" class="validate" required>
+                    <label for="nome">Nome</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" required>
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input id="cpf" type="text" class="validate">
+                    <label for="cpf">CPF</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="rg" type="text" class="validate">
+                    <label for="rg">RG</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input id="telefone" type="tel" class="validate">
+                    <label for="telefone">Telefone</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="celular" type="tel" class="validate">
+                    <label for="celular">Celular</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button onclick="salvar()" class="btn green waves-effect waves-light left" type="submit" name="action">Cadastrar
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function salvar() {
+
+        swal({title: "Salvando!",
+            text: "Aguarde...",
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+        var nome = $('#nome').val();
+        var email = $('#email').val();
+        var password = 'terrasgerais';
+        var cpf = $('#cpf').val();
+        var rg = $('#rg').val();
+        var telefone = $('#telefone').val();
+        var celular = $('#celular').val();
+
+        var secondaryApp = firebase.initializeApp(config, nome);
+
+        secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+            firebase.database().ref('consultores/' + user.uid).set({
+                nome: nome,
+                email: email,
+                cpf: cpf,
+                rg: rg,
+                telefone: telefone,
+                celular: celular,
+                senha: password,
+                tipoUsuario: "CONSULTOR"
+            });
+            secondaryApp.auth().signOut();
+            swal("Consultor Cadastrado com sucesso!", "", "success");
+            window.location.href = "#consultores";
+        }
+
+        , function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            // [START_EXCLUDE]
+            if (errorCode === 'auth/email-already-in-use') {
+                swal("Email do consultor já cadastrado!", "Tente novamente com outro email!", "error");
+            } else if (errorCode === 'auth/weak-password') {
+                swal("Senha imprópria", "A senha deve conter pelo menos 6 caracteres!", "error");
+            } else {
+                console.error(error);
+            }
+            // [END_EXCLUDE]
+
+        });
+    }
+</script>

@@ -1,0 +1,218 @@
+<script src="js/table-script.js" type="text/javascript"></script>
+<link href="css/customTable.css" rel="stylesheet" type="text/css"/>
+
+
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#propriedades">Propriedades</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Informações da Propriedade <strong>{{data.nome_fazenda}}</strong>.</p>
+        <div class="divider"></div><br>
+        <a class="modal-trigger waves-effect waves-light btn-large" href="#mAddTalhao"><i class="mdi-content-add right"></i>Adicionar Talhão</a><br><br>
+        <!-- Modal Structure -->
+        <div id="mAddTalhao" class="modal">
+            <form>
+                <div class="modal-content">
+                    <h4 class="center-align">Adicionar Novo Talhão</h4>
+                    <hr>
+                    <input type="hidden" id="uid" value="{{data.$id}}">
+                    <div class="row">                        
+                        <div class="input-field col s12">
+                            <input id="nome" type="text" class="validate">
+                            <label for="nome">Nome</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="tamanho" type="text" class="validate">
+                            <label for="tamanho">Tamanho</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <input id="latitude" type="text" class="validate">
+                            <label for="latitude">Latitude</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input id="longitude" type="text" class="validate">
+                            <label for="longitude">Longitude</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <select name="situacao" id="situacao">
+                                <option value="" disabled selected>Selecione a Situação</option>
+                                <option value="Próprio">Próprio</option>
+                                <option value="Arrendado">Arrendado</option>
+                                <option value="Novo">Novo</option>
+                                <option value="Já Trabalhado">Já Trabalhado</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="msgtextarea">Observação</label>
+                            <textarea id="msgtextarea" class="materialize-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="salvarTalhao()" class="waves-effect waves-light green btn"><i class="mdi-content-send right"></i>Cadastrar</button>
+                    <br><br>
+                </div>
+            </form>
+        </div>
+        <fieldset>
+            <legend>Informações da propriedade</legend>
+            <h5><strong>Proprietário: </strong>{{data.proprietario}}</h5>
+            <h5><strong>Cidade: </strong>{{data.cidade}} / {{data.estado}}</h5>
+            <h5><strong>Zona Rural: </strong> {{data.zona_rural}}</h5>
+        </fieldset>
+
+        <fieldset>
+            <legend>Talhões</legend>
+            <div class="section">
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs tab-demo z-depth-1">
+                            <li class="tab col s12 m3 l3"><a class="active" href="#tableList">Lista</a>
+                            </li>
+                            <li class="tab col s12 m3 l3"><a href="#mapList">Mapa</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col s12">
+                        <br>
+                        <div id="tableList" class="col s12">
+                            <div id="table-datatables">
+                                <form method="post" action="javascript:;" id="frm-filtro">                
+                                    <div class="input-field">
+                                        <label for="pesquisar">Pesquisar</label>
+                                        <input type="text" id="pesquisar" name="pesquisar" size="30" />                
+                                    </div>
+                                </form>
+                                <table id="data-table-simple" class="responsive-table display hoverable centered" cellspacing="0" summary="Tabela de propriedades">
+                                    <thead>
+                                        <tr>                                           
+                                            <th data-field="Talhão"><i class="mdi-maps-terrain"></i> Talhão</th>                                            
+                                            <th data-field="Tamanho"><i class="mdi-social-pages"></i> Tamanho</th>
+                                            <th data-field="Situação"><i class="mdi-action-bookmark-outline"></i> Situação</th>
+                                            <th data-field="Ações"><i class="mdi-action-settings"></i> Ações</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="talhao in dataTalhao">
+                                            <td>{{talhao.nome}}</td>
+                                            <td>{{talhao.tamanho}}</td>
+                                            <td>{{talhao.situacao}}</td>                                            
+                                            <td>
+                                                <a class="btn teal waves-effect waves-light" href="#info-talhao/{{id}}/{{talhao.$id}}"><i class="mdi-action-info"></i></a>
+                                                <a class="btn blue waves-effect waves-light" href="#edit-talhao/{{id}}/{{talhao.$id}}"><i class="mdi-editor-mode-edit"></i></a>
+                                                <form style="display: inline-block;">
+                                                    <input id="uidTalhao" type="hidden" value="{{talhao.$id}}">
+                                                    <input id="uidProp" type="hidden" value="{{id}}">
+                                                    <button onclick="deletar()" class="btn red waves-effect waves-light"  data-position="top" data-tooltip="Excluir"><i class="mdi-action-delete"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end container-->
+
+                    <script type="text/javascript">
+                                /*Show entries on click hide*/
+                                $(document).ready(function () {
+                                    $('select').material_select();
+                                    $(".dropdown-content.select-dropdown li").on("click", function () {
+                                        var that = this;
+                                        setTimeout(function () {
+                                            if ($(that).parent().hasClass('active')) {
+                                                $(that).parent().removeClass('active');
+                                                $(that).parent().hide();
+                                            }
+                                        }, 100);
+                                    });
+                                });
+                    </script>
+                    <div id="mapList" class="col s12">
+                        <div class="card-image waves-effect waves-block waves-light">                
+                            <div id="mapPropriedade" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+            $(document).ready(function () {
+                $('.modal-trigger').leanModal();
+                $('select').material_select();
+                $('.tab-demo').show().tabs();
+            });
+
+            function salvarTalhao() {
+                swal({title: "Salvando!",
+                    text: "Aguarde...",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                var uid = $('#uid').val();
+                var nome = $('#nome').val();
+                var tamanho = $('#tamanho').val();
+                var latitude = $('#latitude').val();
+                var longitude = $('#longitude').val();
+                var situacao = $('#situacao option:selected').val();
+                var msgtextarea = $('#msgtextarea').val();
+                var newPostKey = firebase.database().ref().child('talhoes').push().key;
+                firebase.database().ref('talhoes/' + uid + '/' + newPostKey).set({
+                    nome: nome,
+                    tamanho: tamanho,
+                    latitude: latitude,
+                    longitude: longitude,
+                    situacao: situacao,
+                    observacao: msgtextarea
+                });
+                swal("Talhão Cadastrado com sucesso!", "", "success");
+            };
+
+            function deletar() {
+                var id = $('#uidTalhao').val();
+                var idP = $('#uidProp').val();
+
+                swal({title: "Excluir?",
+                    text: "Você deseja realmente excluir este talhão?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Sim!",
+                    cancelButtonText: "Não!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false},
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                firebase.database().ref('talhoes/' + idP + '/' + id).remove();
+                                swal("Deletado!", "Talhão excluído com sucesso!", "success");
+                            } else {
+                                swal("Cancelado", "Talhão não excluído :)", "error");
+                            }
+                        });
+
+            };
+
+</script>

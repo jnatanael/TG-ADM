@@ -1,0 +1,154 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#clientes">Clientes</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Atualize as informações do cliente <strong>{{data.nome}}</strong>.</p>
+        <div class="divider"></div>
+        <form>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="nome" type="text" class="validate" value="{{data.nome}}">
+                    <label class="active" for="nome">Nome</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" value="{{data.email}}" disabled>
+                    <label class="active" for="email">Email</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input id="telefone" type="tel" class="validate" value="{{data.telefone}}">
+                    <label class="active" for="telefone">Telefone</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="celular" type="tel" class="validate" value="{{data.celular}}">
+                    <label class="active" for="celular">Celular</label>
+                </div>
+            </div>
+            <input type="hidden" value="{{data.$id}}" id="uid">
+            <input type="hidden" value="{{data.cpf}}" id="cpf">
+            <input type="hidden" value="{{data.data_nascimento}}" id="data_nascimento">
+            <input type="hidden" value="{{data.rg}}" id="rg">
+            <input type="hidden" value="{{data.cep}}" id="cep">
+            <input type="hidden" value="{{data.cidade}}" id="cidade">
+            <input type="hidden" value="{{data.estado}}" id="estado">
+            <input type="hidden" value="{{data.rua}}" id="rua">
+            <input type="hidden" value="{{data.numero}}" id="numero">
+            <input type="hidden" value="{{data.complemento}}" id="complemento">
+            <input type="hidden" value="{{data.bairro}}" id="bairro">
+            <input type="hidden" value="{{data.razao_social_propriedade}}" id="razao_social_propriedade">
+            <input type="hidden" value="{{data.nome_fantasia_propriedade}}" id="nome_fantasia_propriedade">
+            <input type="hidden" value="{{data.cnpj_propriedade}}" id="cnpj_propriedade">
+            <input type="hidden" value="{{data.inscricao_estadual_propriedade}}" id="inscricao_estadual_propriedade">
+            <input type="hidden" value="{{data.nome_administrador}}" id="nome_administrador">
+            <input type="hidden" value="{{data.email_administrador}}" id="email_administrador">
+            <input type="hidden" value="{{data.telefone_administrador}}" id="telefone_administrador">
+            <input type="hidden" value="{{data.nome_gerente}}" id="nome_gerente">
+            <input type="hidden" value="{{data.email_gerente}}" id="email_gerente">
+            <input type="hidden" value="{{data.telefone_gerente}}" id="telefone_gerente">
+            <input type="hidden" value="{{data.facebook}}" id="facebook">
+            <input type="hidden" value="{{data.linkedin}}" id="linkedin">
+            <input type="hidden" value="{{data.whatsapp}}" id="whatsapp">
+            <div class="row">
+                <div class="input-field col s12">
+                    <button onclick="salvar()" class="btn green waves-effect waves-light left" type="submit" name="action">Atualizar
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function salvar() {
+        swal({title: "Salvando!",
+                    text: "Aguarde...",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+        var nome = $('#nome').val();
+        var email = $('#email').val();
+        var cpf = $('#cpf').val();
+        var rg = $('#rg').val();
+        var telefone = $('#telefone').val();
+        var celular = $('#celular').val();
+
+        var cep = $('#cep').val();
+        var cidade = $('#cidade').val();
+        var estado = $('#estado').val();
+        var rua = $('#rua').val();
+        var numero = $('#numero').val();
+        var complemento = $('#complemento').val();
+        var bairro = $('#bairro').val();
+        var razao_social_propriedade = $('#razao_social_propriedade').val();
+        var nome_fantasia_propriedade = $('#nome_fantasia_propriedade').val();
+        var cnpj_propriedade = $('#cnpj_propriedade').val();
+        var inscricao_estadual_propriedade = $('#inscricao_estadual_propriedade').val();
+        var nome_administrador = $('#nome_administrador').val();
+        var email_administrador = $('#email_administrador').val();
+        var telefone_administrador = $('#telefone_administrador').val();
+        var nome_gerente = $('#nome_gerente').val();
+        var email_gerente = $('#email_gerente').val();
+        var telefone_gerente = $('#telefone_gerente').val();
+        var linkedin = $('#linkedin').val();
+        var facebook = $('#facebook').val();
+        var whatsapp = $('#whatsapp').val();
+        var data_nascimento = $('#data_nascimento').val();
+
+
+        var id = $('#uid').val();
+
+
+        firebase.database().ref('clientes/' + id).set({
+            nome: nome,
+            email: email,
+            cpf: cpf,
+            rg: rg,
+            telefone: telefone,
+            celular: celular,
+            cep: cep,
+            cidade: cidade,
+            estado: estado,
+            rua: rua,
+            numero: numero,
+            complemento: complemento,
+            bairro: bairro,
+            razao_social_propriedade: razao_social_propriedade,
+            nome_fantasia_propriedade: nome_fantasia_propriedade,
+            cnpj_propriedade: cnpj_propriedade,
+            inscricao_estadual_propriedade: inscricao_estadual_propriedade,
+            nome_administrador: nome_administrador,
+            email_administrador: email_administrador,
+            telefone_administrador: telefone_administrador,
+            nome_gerente: nome_gerente,
+            email_gerente: email_gerente,
+            telefone_gerente: telefone_gerente,
+            linkedin: linkedin,
+            facebook: facebook,
+            whatsapp: whatsapp,
+            data_nascimento: data_nascimento
+        });
+        swal("Alteração efetuada com sucesso!", "", "success");
+        window.location.href = "#clientes";
+
+    }
+</script>

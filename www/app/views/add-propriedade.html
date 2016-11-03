@@ -1,0 +1,150 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#propriedades">Propriedades</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Preencha com as informações da Propriedade.</p>
+        <div class="divider"></div><br>
+        <form>
+            <div class="row">
+                <div class="input-field col s12" >
+                    <label for="proprietario">Proprietário</label>
+                    <input type="text" list="clientes" id="proprietario" class="validate" required>
+                    <datalist id="clientes" ng-repeat="cliente in data">
+                        <option id="{{cliente.$id}}" value="{{cliente.nome}}">                         
+                    </datalist>
+                </div>
+                <div class="input-field col s12">
+                    <input id="nome-fazenda" type="text" class="validate" required>
+                    <label for="nome-fazenda">Nome da Fazenda</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m4 l4">
+                    <input id="cidade" type="text" class="validate" required>
+                    <label for="cidade">Cidade</label>
+                </div>
+                <div class="input-field col s12 m4 l4">
+                    <select name="estado" id="estado" required>
+                        <option value="" disabled selected>Selecione o Estado</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                </div>
+                <div class="input-field col s12 m4 l4">
+                    <input id="zona-rural" type="text" class="validate" required>
+                    <label for="zona-rural">Zona Rural</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input id="latitude" type="text" class="validate" required>
+                    <label for="latitude">Latitude</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="longitude" type="text" class="validate" required>
+                    <label for="longitude">Longitude</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button onclick="salvar()" class="btn green waves-effect waves-light left" type="submit" name="action">Cadastrar
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+            $(document).ready(function () {
+                $('select').material_select();
+            });
+
+            function salvar() {
+
+                swal({title: "Salvando!",
+                    text: "Aguarde...",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                var proprietario = $("#proprietario");
+                var dataList = $("#clientes");
+
+                var value = proprietario.val();
+                var option = $("option", dataList).filter(function () {
+                    return this.value === value;
+                });
+                var id = option.attr("id");
+
+
+                var proprietario = $('#proprietario').val();
+                var nome_fazenda = $('#nome-fazenda').val();
+                var cidade = $('#cidade').val();
+                var estado = $('#estado option:selected').val();
+                var zona_rural = $('#zona-rural').val();
+                var latitude = $('#latitude').val();
+                var longitude = $('#longitude').val();
+
+                var idPropriedade = nome_fazenda.replace(/\s/g, "");
+
+                firebase.database().ref('propriedades/' + idPropriedade).set({
+                    proprietario: proprietario,
+                    nome_fazenda: nome_fazenda,
+                    cidade: cidade,
+                    estado: estado,
+                    zona_rural: zona_rural,
+                    latitude: latitude,
+                    longitude: longitude,
+                    idProprietario: id
+                });
+                swal("Propriedade Cadastrada com sucesso!","","success");
+                window.location.href = "#propriedades";
+
+            };
+
+</script>

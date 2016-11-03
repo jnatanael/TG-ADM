@@ -1,0 +1,111 @@
+<div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">{{message}}</h5>
+                <ol class="breadcrumbs">
+                    <li><a href="#/">Dashboard</a></li>
+                    <li><a href="#usuarios">Usuários</a></li>
+                    <li class="active">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+
+<!--start container-->
+<div class="container">
+    <div class="section">
+        <p class="caption">Preencha com as informações do usuário.</p>
+        <div class="divider"></div>
+        <form>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="nome" type="text" class="validate" required>
+                    <label for="nome">Nome</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input id="email" type="email" class="validate" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="senha" type="password" class="validate" required>
+                    <label for="senha">Senha</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input id="telefone" type="tel" class="validate">
+                    <label for="telefone">Telefone</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="celular" type="tel" class="validate">
+                    <label for="celular">Celular</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button onclick="salvar()" class="btn green waves-effect waves-light left" type="submit" name="action">Cadastrar
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+    function salvar() {
+
+        swal({title: "Salvando!",
+            text: "Aguarde...",
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+        var tipo_usuario = $('#tipo_usuario option:selected').val();
+        var nome = $('#nome').val();
+        var email = $('#email').val();
+        var password = $('#senha').val();
+        var telefone = $('#telefone').val();
+        var celular = $('#celular').val();
+        var avatar = "https://firebasestorage.googleapis.com/v0/b/terras-52f04.appspot.com/o/config%2Flogin-logo.png?alt=media&token=42a45e9e-62ea-4fcf-8dbd-4269bf75daff";
+
+        var secondaryApp = firebase.initializeApp(config,nome);
+
+        secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+            firebase.database().ref('usuarios/' + user.uid).set({
+                tipoUsuario: "ADM",
+                nome: nome,
+                email: email,
+                telefone: telefone,
+                celular: celular,
+                avatar: avatar,
+                senha: password
+            });
+            secondaryApp.auth().signOut();
+            swal("Usuário Cadastrado com sucesso!", "", "success");
+            window.location.href = "#usuarios";
+        }, function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            // [START_EXCLUDE]
+            if (errorCode === 'auth/email-already-in-use') {
+                swal("Email do usuário já cadastrado!", "Tente novamente com outro email!", "error");
+            } else if (errorCode === 'auth/weak-password') {
+                swal("Senha imprópria", "A senha deve conter pelo menos 6 caracteres!", "error");
+            } else {
+                console.error(error);
+            }
+            // [END_EXCLUDE]
+        });
+    }
+
+</script>
